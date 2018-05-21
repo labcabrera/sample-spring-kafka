@@ -1,0 +1,20 @@
+= Ejemplo de integración de Spring Boot y Apache Kafka
+
+---
+docker pull spotify/kafka
+
+docker run -d -p 2181:2181 -p 9092:9092 --env ADVERTISED_HOST=localhost --env ADVERTISED_PORT=9092 --name kafka spotify/kafka
+
+docker exec kafka /opt/kafka_2.11-0.10.1.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+curl -d '{"subject":"hi","body":"some message body"}' -H "Content-Type: application/json" http://localhost:8080/api/publish 
+----
+
+
+== References
+* https://docs.spring.io/spring-kafka/reference/htmlsingle/
+* https://gist.github.com/abacaphiliac/f0553548f9c577214d16290c2e751071
+* https://github.com/spring-projects/spring-integration-samples/tree/master/dsl/kafka-dsl
+* https://hub.docker.com/r/spotify/kafka/
+
+
